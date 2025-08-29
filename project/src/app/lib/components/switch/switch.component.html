@@ -1,0 +1,45 @@
+<div 
+  class="switch-container"
+  [attr.aria-describedby]="error() ? 'error-message' : success() ? 'success-message' : null"
+  [class.disabled]="disabled()"
+  [class.error]="!!error()"
+  [class.success]="!!success()"
+  [class.small]="size() === 'small'"
+  [class.large]="size() === 'large'"
+>
+  <label class="switch-label" [class]="labelPosition() === 'left' ? 'label-left' : 'label-right'">
+    <input
+      type="checkbox"
+      class="switch-input"
+      [checked]="checked()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [attr.aria-required]="required()"
+      [attr.aria-invalid]="!!error()"
+      [attr.aria-checked]="checked()"
+      (change)="toggle()"
+    />
+    <span class="switch-control">
+      <span class="switch-thumb"></span>
+    </span>
+    <span class="switch-text">
+      @if (label()) {
+        {{ label() }}
+      } @else {
+        <ng-content>Switch</ng-content>
+      }
+    </span>
+  </label>
+
+  @if (error()) {
+    <div id="error-message" class="switch-error" role="alert">
+      {{ error() }}
+    </div>
+  }
+
+  @if (success()) {
+    <div id="success-message" class="switch-success" role="status">
+      {{ success() }}
+    </div>
+  }
+</div>

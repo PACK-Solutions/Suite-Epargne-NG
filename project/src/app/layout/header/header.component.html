@@ -1,0 +1,51 @@
+<header class="app-header">
+  <div class="header-title">
+    <button 
+      class="hamburger-button" 
+      (click)="toggleMobileMenu()" 
+      [class.active]="isMobileMenuOpen()" 
+      aria-label="Menu principal" 
+      [attr.aria-expanded]="isMobileMenuOpen()"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <img [src]="logoSrc()" alt="Suite Épargne Logo"/>
+  </div>
+  
+  <div class="header-actions">
+    <psh-button 
+      appearance="text" 
+      [icon]="isDarkTheme() ? 'sun' : 'moon'"
+      iconPosition="only" 
+      (clicked)="toggleTheme()"
+    >
+    </psh-button>
+    
+    <psh-avatar
+      src="https://i.pravatar.cc/150?img=3"
+      alt="Profile"
+      size="medium"
+      status="online"
+    ></psh-avatar>
+    
+    <psh-dropdown variant="text">
+      <span dropdown-trigger>John Doe</span>
+      <div dropdown-menu>
+        <button class="dropdown-item">
+          <i class="ph ph-user"></i>
+          Profil
+        </button>
+        <button class="dropdown-item">
+          <i class="ph ph-gear"></i>
+          Paramètres
+        </button>
+        <button class="dropdown-item">
+          <i class="ph ph-sign-out"></i>
+          Déconnexion
+        </button>
+      </div>
+    </psh-dropdown>
+  </div>
+</header>

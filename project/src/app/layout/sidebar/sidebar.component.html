@@ -1,0 +1,293 @@
+<psh-sidebar 
+  [open]="sidebarOpen()" 
+  width="300px" 
+  [mode]="sidebarMode()"
+  (toggle)="onSidebarToggle($event)"
+  breakpoint="768px"
+>
+  <!-- Header avec croix de fermeture sur mobile -->
+  @if (isMobile()) {
+    <div class="sidebar-mobile-header">
+      <h2 class="sidebar-title">Navigation</h2>
+      <button 
+        class="sidebar-close-button"
+        (click)="closeMobileMenu()"
+        aria-label="Fermer le menu"
+        type="button"
+      >
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
+
+  <nav class="sidebar-nav" role="navigation" aria-label="Navigation principale">
+    <ul class="sidebar-menu">
+      
+      <!-- Dashboard -->
+      <li class="sidebar-item">
+        <a 
+          routerLink="/dashboard" 
+          routerLinkActive="active" 
+          class="sidebar-link"
+          [attr.aria-current]="activePathSignal() === '/dashboard' ? 'page' : null"
+        >
+          <i class="ph ph-chart-bar" aria-hidden="true"></i>
+          <span class="sidebar-label">Dashboard</span>
+        </a>
+      </li>
+      
+      <!-- Personnes -->
+      <li class="sidebar-item" [class.expanded]="isPersonsExpanded()">
+        <a 
+          routerLink="/personnes" 
+          routerLinkActive="active" 
+          class="sidebar-link"
+          [class.active]="isPersonsActive()"
+          [attr.aria-current]="activePathSignal() === '/personnes' ? 'page' : null"
+          (click)="togglePersonsMenu($event)"
+          [attr.aria-expanded]="currentPerson() || currentLegalPerson() ? isPersonsExpanded() : null"
+        >
+          <i class="ph ph-users" aria-hidden="true"></i>
+          <span class="sidebar-label">Personnes</span>
+          @if (currentPerson() || currentLegalPerson()) {
+            <i class="ph ph-caret-down sidebar-caret" 
+                [class.expanded]="isPersonsExpanded()"
+                aria-hidden="true"></i>
+          }
+        </a>
+        
+        <!-- Submenu for current person (if any) -->
+        @if (currentPerson()) {
+          <ul class="sidebar-submenu" role="menu">
+            <li>
+              <div class="sidebar-submenu-header">
+                <i class="ph ph-user-circle" aria-hidden="true"></i>
+                <span class="sidebar-label">{{ currentPerson()?.firstName }} {{ currentPerson()?.lastName }}</span>
+              </div>
+            </li>
+            <li class="sidebar-divider" role="separator"></li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'general']" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: false}"
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal().includes('/personnes/' + currentPerson()?.id + '/general') ? 'page' : null"
+              >
+                <i class="ph ph-info" aria-hidden="true"></i>
+                <span class="sidebar-label">Vue générale</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'civilite']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes/' + currentPerson()?.id + '/civilite' ? 'page' : null"
+              >
+                <i class="ph ph-user" aria-hidden="true"></i>
+                <span class="sidebar-label">Civilité</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'taxinfo']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes/' + currentPerson()?.id + '/taxinfo' ? 'page' : null"
+              >
+                <i class="ph ph-calculator" aria-hidden="true"></i>
+                <span class="sidebar-label">Infos fiscales</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'adresse']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes/' + currentPerson()?.id + '/adresse' ? 'page' : null"
+              >
+                <i class="ph ph-map-pin" aria-hidden="true"></i>
+                <span class="sidebar-label">Adresses</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'banking']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes/' + currentPerson()?.id + '/banking' ? 'page' : null"
+              >
+                <i class="ph ph-bank" aria-hidden="true"></i>
+                <span class="sidebar-label">Coordonnées bancaires</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes', currentPerson()?.id, 'history']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes/' + currentPerson()?.id + '/history' ? 'page' : null"
+              >
+                <i class="ph ph-clock-clockwise" aria-hidden="true"></i>
+                <span class="sidebar-label">Historique</span>
+              </a>
+            </li>
+          </ul>
+        }
+        
+        <!-- Submenu for current legal person (if any) -->
+        @if (currentLegalPerson()) {
+          <ul class="sidebar-submenu" role="menu">
+            <li>
+              <div class="sidebar-submenu-header">
+                <i class="ph ph-buildings" aria-hidden="true"></i>
+                <span class="sidebar-label">{{ currentLegalPerson()?.raisonSociale }}</span>
+              </div>
+            </li>
+            <li class="sidebar-divider" role="separator"></li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'general']" 
+                routerLinkActive="active" 
+                [routerLinkActiveOptions]="{exact: false}"
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal().includes('/personnes-morales/' + currentLegalPerson()?.id + '/general') ? 'page' : null"
+              >
+                <i class="ph ph-info" aria-hidden="true"></i>
+                <span class="sidebar-label">Vue générale</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'civilite']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes-morales/' + currentLegalPerson()?.id + '/civilite' ? 'page' : null"
+              >
+                <i class="ph ph-buildings" aria-hidden="true"></i>
+                <span class="sidebar-label">Entité</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'taxinfo']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes-morales/' + currentLegalPerson()?.id + '/taxinfo' ? 'page' : null"
+              >
+                <i class="ph ph-calculator" aria-hidden="true"></i>
+                <span class="sidebar-label">Infos fiscales</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'adresse']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes-morales/' + currentLegalPerson()?.id + '/adresse' ? 'page' : null"
+              >
+                <i class="ph ph-map-pin" aria-hidden="true"></i>
+                <span class="sidebar-label">Adresses</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'banking']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes-morales/' + currentLegalPerson()?.id + '/banking' ? 'page' : null"
+              >
+                <i class="ph ph-bank" aria-hidden="true"></i>
+                <span class="sidebar-label">Coordonnées bancaires</span>
+              </a>
+            </li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/personnes-morales', currentLegalPerson()?.id, 'history']" 
+                routerLinkActive="active" 
+                class="sidebar-sublink"
+                [attr.aria-current]="activePathSignal() === '/personnes-morales/' + currentLegalPerson()?.id + '/history' ? 'page' : null"
+              >
+                <i class="ph ph-clock-clockwise" aria-hidden="true"></i>
+                <span class="sidebar-label">Historique</span>
+              </a>
+            </li>
+          </ul>
+        }
+      </li>
+      
+      <!-- Contrats -->
+      <li class="sidebar-item" [class.expanded]="isContractsExpanded()">
+        <a 
+          routerLink="/contrats" 
+          routerLinkActive="active" 
+          class="sidebar-link"
+          [class.active]="isContractsActive()"
+          [attr.aria-current]="isContractsActive() ? 'page' : null"
+          (click)="toggleContractsMenu($event)"
+          [attr.aria-expanded]="currentContract() ? isContractsExpanded() : null"
+        >
+          <i class="ph ph-gavel" aria-hidden="true"></i>
+          <span class="sidebar-label">Contrats</span>
+          @if (currentContract()) {
+            <i class="ph ph-caret-down sidebar-caret" 
+              [class.expanded]="isContractsExpanded()"
+              aria-hidden="true"></i>
+          }
+        </a>
+        
+        <!-- Sous-menu dynamique pour les contrats -->
+        @if (currentContract()) {
+          <ul class="sidebar-submenu" [class.expanded]="isContractsExpanded()" role="menu">
+            <li>
+              <div class="sidebar-submenu-header">
+                <i class="ph ph-file-contract" aria-hidden="true"></i>
+                <span class="sidebar-label">{{ currentContract()!.contractNumber }}</span>
+              </div>
+            </li>
+            <li class="sidebar-divider" role="separator"></li>
+            <li class="sidebar-subitem">
+              <a 
+                [routerLink]="['/contrats', currentContract()!.id]" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+                class="sidebar-sublink">
+                <i class="ph ph-info" aria-hidden="true"></i>
+                <span class="sidebar-label">Vue générale</span>
+              </a>
+            </li>
+          </ul>
+        }
+      </li>
+      
+      <!-- Rentes -->
+      <li class="sidebar-item">
+        <a 
+          routerLink="/rentes" 
+          routerLinkActive="active" 
+          class="sidebar-link"
+          [class.active]="isRentsActive()"
+          [attr.aria-current]="isRentsActive() ? 'page' : null"
+        >
+          <i class="ph ph-coin-vertical" aria-hidden="true"></i>
+          <span class="sidebar-label">Rentes</span>
+        </a>
+      </li>
+      
+      <!-- Décès -->
+      <li class="sidebar-item">
+        <a 
+          routerLink="/deces" 
+          routerLinkActive="active" 
+          class="sidebar-link"
+          [class.active]="isDeathActive()"
+          [attr.aria-current]="isDeathActive() ? 'page' : null"
+        >
+          <i class="ph ph-heartbeat" aria-hidden="true"></i>
+          <span class="sidebar-label">Décès</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</psh-sidebar>

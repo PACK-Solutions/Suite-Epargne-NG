@@ -1,0 +1,39 @@
+<div class="person-banking-details">
+  <div class="view-content">
+    @if (personDetails()) {
+      <div class="info-cards-grid">
+        <psh-info-card 
+          title="Informations Bancaires" 
+          [data]="bankingData()"
+          cardVariant="outlined"
+          icon="bank"
+        >
+          <div card-actions>
+            <psh-button appearance="text" variant="primary" (clicked)="editBanking()">
+              Modifier
+            </psh-button>
+          </div>
+        </psh-info-card>
+
+        @if (mandateData().length > 0) {
+          <psh-info-card 
+            title="Mandat SEPA" 
+            [data]="mandateData()"
+            cardVariant="outlined"
+            icon="file-text"
+          >
+            <div card-actions>
+              <psh-button appearance="text" variant="primary" (clicked)="editBanking()">
+                Modifier
+              </psh-button>
+            </div>
+          </psh-info-card>
+        }
+      </div>
+    } @else {
+      <div class="error-state">
+        <p>Personne non trouvée</p>
+      </div>
+    }
+  </div>
+</div>

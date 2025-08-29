@@ -1,0 +1,106 @@
+<div class="person-general-info">
+  <div class="view-content">
+    @if (personDetails()) {
+      <!-- Section Contrats en premier -->
+      <div class="contracts-section" *ngIfCapability="'person.displayContractsGeneralView'">
+        <person-contracts-block
+          [person]="personDetails()!"
+          [showActions]="true"
+          (contractSelected)="navigateToContract($event)"
+          (newContractRequested)="navigateToSection('contrats')"
+        ></person-contracts-block>
+      </div>
+
+      <!-- Info Cards Grid -->
+      <div class="info-cards-grid">
+        <!-- Civilité Card -->
+        <div *ngIfCapability="'person.displayCivilityGeneralView'">
+          <psh-info-card 
+            title="Identité" 
+            [data]="civilityData()"
+            cardVariant="outlined"
+            icon="user"
+          >
+            <div card-actions>
+              <psh-button 
+                appearance="text" 
+                variant="primary" 
+                icon="eye"
+                (clicked)="navigateToSection('civilite')"
+              >
+                Voir le détails
+              </psh-button>
+            </div>
+          </psh-info-card>
+        </div>
+
+        <!-- Adresse Card -->
+        <div *ngIfCapability="'person.displayAddressGeneralView'">
+          <psh-info-card 
+            title="Adresses et communication" 
+            [data]="addressData()"
+            cardVariant="outlined"
+            icon="map-pin"
+          >
+            <div card-actions>
+              <psh-button 
+                appearance="text" 
+                variant="primary" 
+                icon="eye"
+                (clicked)="navigateToSection('adresse')"
+              >
+                Voir le détails
+              </psh-button>
+            </div>
+          </psh-info-card>
+        </div>
+
+        <!-- Informations Fiscales Card -->
+        <div *ngIfCapability="'person.displayFiscalInfoGeneralView'">
+          <psh-info-card 
+            title="Informations fiscales" 
+            [data]="fiscalData()"
+            cardVariant="outlined"
+            icon="calculator"
+          >
+            <div card-actions>
+              <psh-button 
+                appearance="text" 
+                variant="primary" 
+                icon="eye"
+                (clicked)="navigateToSection('taxinfo')"
+              >
+                Voir le détails
+              </psh-button>
+            </div>
+          </psh-info-card>
+        </div>
+
+        <!-- Coordonnées Bancaires Card -->
+        <div *ngIfCapability="'person.displayBankingGeneralView'">
+          <psh-info-card 
+            title="Informations bancaires" 
+            [data]="bankingData()"
+            cardVariant="outlined"
+            icon="bank"
+          >
+            <div card-actions>
+              <psh-button 
+                appearance="text" 
+                variant="primary" 
+                icon="eye"
+                (clicked)="navigateToSection('banking')"
+              >
+                Voir le détails
+              </psh-button>
+            </div>
+          </psh-info-card>
+        </div>
+      </div>
+    } @else {
+      <div class="error-state">
+        <p>Personne non trouvée</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,42 @@
+/* Import styles */
+@import './app/lib/styles/reset.css';
+@import './app/lib/styles/utils/variables.css';
+@import './app/lib/styles/utils/typography.css';
+@import './app/lib/styles/utils/spacing.css';
+@import './app/lib/styles/utils/animations.css';
+@import './app/lib/styles/themes/light.css';
+@import './app/lib/styles/themes/dark.css';
+
+
+/* Global fixes for mobile */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+  .layout-container {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Hide scrollbar on mobile devices */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  * {
+    scrollbar-width: none;
+  }
+}
+

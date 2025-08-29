@@ -1,0 +1,31 @@
+<div class="contract-row" (click)="handleClick()">
+  <div class="contract-info">
+    <div class="contract-field">
+      <span class="field-label">Numéro de contrat :</span>
+      <span class="field-value contract-number">{{ contract().contractNumber }}</span>
+    </div>
+    
+    <div class="contract-field">
+      <span class="field-label">Produit :</span>
+      <span class="field-value">{{ contract().product }}</span>
+    </div>
+    
+    <div class="contract-field">
+      <span class="field-label">Épargne acquise :</span>
+      <span class="field-value amount">{{ formattedSavings() }}</span>
+    </div>
+    
+    <div class="contract-field">
+      <span class="field-label">Statut :</span>
+      <psh-tag [variant]="statusVariant()">
+        {{ statusLabel() }}
+      </psh-tag>
+    </div>
+  </div>
+  
+  <div class="contract-actions">
+    <div class="contract-arrow" [attr.aria-label]="'Voir le contrat ' + contract().contractNumber">
+      <i class="ph ph-arrow-right" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>

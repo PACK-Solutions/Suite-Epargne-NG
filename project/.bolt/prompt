@@ -1,0 +1,61 @@
+Use Angular 19+ standards. Enforce the following architecture and coding rules for all components, services, and UI structures:
+
+1. COMPONENT STRUCTURE
+- Use Angular standalone components (`standalone: true`)
+- Files must be split: `.ts`, `.html`, `.css` — no inline templates or styles
+- File naming: kebab-case. Class names: PascalCase
+- Each component lives in its own folder
+- Use `ChangeDetectionStrategy.OnPush` by default
+
+2. CONTROL FLOW
+- Only use modern control flow:
+  - `@if`, `@else`
+  - `@for`
+  - No legacy syntax (`*ngIf`, `*ngFor`, `ngSwitch`) allowed
+
+3. SIGNALS & STATE
+- All reactive state must use Angular signals:
+  - `signal()`, `computed()`, `linked()`, `effect()`
+  - Use `linkedSignals()` to derive multiple values from the same state
+- Use `model()` for two-way binding instead of `ngModel`
+- Avoid RxJS unless explicitly needed for interop
+
+4. INPUTS & CONFIG
+- Use `@Input()` for configuration
+- Inputs must be typed and documented
+- Prefer `@Input() config: ContractHeaderConfig` pattern for complex settings
+- Use `types.ts` to define all public input interfaces
+
+5. ACCESSIBILITY
+- Always use semantic HTML (`<button>`, `<label>`, `<section>`, etc.)
+- All interactive components must:
+  - Be keyboard navigable
+  - Use visible focus styles
+  - Expose proper `aria-*` attributes (`aria-label`, `aria-describedby`, `aria-disabled`, etc.)
+  - Use `role="button"` or others only when semantic tags aren’t available
+- Do not use divs for interactive controls
+
+6. CONTENT PROJECTION
+- Use `ng-content` for slots
+- Support default content fallback
+- Handle missing projected content gracefully
+
+7. DEPENDENCY INJECTION
+- Use `@Inject`, `@Optional`, `InjectionToken` for flexible config
+- Allow context-driven overrides (e.g. multi-provider patterns, per-component tokens)
+- No global hard dependencies
+
+8. NO LEGACY / NO ZONE.JS
+- No `Zone.js`, no `ngOnInit`, no `ngModel`, no ViewChild hacks
+- Use lifecycle signals or explicit event binding where needed
+
+9. NAMING AND STRUCTURE
+- Respect strict separation: logic in `.ts`, view in `.html`, style in `.css`
+- Do not put logic inside templates
+- Use `i18n` placeholders when exposing user-facing text
+
+10. ROUTING & ORGANIZATION
+- Use route-level standalone components only
+- Avoid modules unless routing requires grouping
+
+Follow these rules strictly unless exceptions are justified in writing.

@@ -1,0 +1,42 @@
+<header class="view-header">
+  <div class="header-left">
+    <psh-button 
+      appearance="rounded" 
+      variant="primary" 
+      size="large"
+      icon="arrow-left"
+      iconPosition="only"
+      (clicked)="handleBack()"
+      ariaLabel="Retour à la liste des personnes"
+    ></psh-button>
+    <div class="header-title">
+      <h1>{{ personData().name }}</h1>
+      <div class="header-subtitle">
+        <i class="ph ph-fingerprint" aria-hidden="true"></i>
+        Identifiant : {{ personData().identifier }}
+        @if (personData().deathStatus) {
+          <psh-tag 
+            [variant]="deathStatusVariant()"
+            size="small"
+            [icon]="deathStatusIcon()"
+          >
+            {{ deathStatusLabel() }}
+          </psh-tag>
+        }
+      </div>
+    </div>
+  </div>
+  
+  @if (showActions()) {
+    <div class="header-actions">
+      <psh-button 
+        appearance="filled" 
+        variant="primary" 
+        icon="files"
+        (clicked)="handleDocuments()"
+      >
+        Documents
+      </psh-button>
+    </div>
+  }
+</header>

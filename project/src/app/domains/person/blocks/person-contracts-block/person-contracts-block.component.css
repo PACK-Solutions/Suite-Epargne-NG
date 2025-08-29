@@ -1,0 +1,118 @@
+/* Section moderne sans card wrapper */
+.contracts-section {
+  width: 100%;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Header avec titre et action */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--surface-border);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.section-title i {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  background: rgba(var(--primary-color-rgb), 0.1);
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
+}
+
+/* Liste des contrats */
+.contracts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* État vide moderne */
+.empty-contracts {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--surface-ground) 0%, var(--surface-100) 100%);
+  border-radius: var(--border-radius-lg);
+  border: 1px dashed var(--surface-border);
+  transition: all 0.3s ease;
+}
+
+.empty-contracts:hover {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.05) 0%, var(--surface-ground) 100%);
+}
+
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.1) 0%, rgba(var(--primary-color-rgb), 0.05) 100%);
+  border-radius: var(--border-radius-full);
+  flex-shrink: 0;
+}
+
+.empty-icon i {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.empty-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.empty-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.empty-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--text-color-secondary);
+  margin: 0 0 var(--spacing-md) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  
+  .empty-contracts {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
+  }
+  
+  .empty-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .empty-icon i {
+    font-size: 1.5rem;
+  }
+}

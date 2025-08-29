@@ -1,0 +1,272 @@
+/* Base button styles */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-lg);
+  border: none;
+  font-weight: var(--button-font-weight);
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--button-transition);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+/* Button content */
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+/* Sizes */
+button.small {
+  height: 32px;
+  font-size: var(--font-size-sm);
+  padding: 0 var(--spacing-md);
+  min-width: 100px;
+}
+
+button.medium {
+  height: 40px;
+  font-size: var(--font-size-base);
+  padding: 0 var(--spacing-lg);
+  min-width: 120px;
+}
+
+button.large {
+  height: 48px;
+  font-size: var(--font-size-lg);
+  padding: 0 var(--spacing-lg);
+  min-width: 140px;
+}
+
+/* Icon only mode */
+button.icon-only {
+  width: 40px;
+  padding: 0;
+  min-width: unset;
+  aspect-ratio: 1;
+}
+
+button.icon-only.small {
+  width: 32px;
+  height: 32px;
+}
+
+button.icon-only.medium {
+  width: 40px;
+  height: 40px;
+}
+
+button.icon-only.large {
+  width: 48px;
+  height: 48px;
+}
+
+/* Full width */
+button.full-width {
+  width: 100%;
+  min-width: 100%;
+}
+
+/* Appearances */
+/* Filled */
+button.filled {
+  background-color: currentColor;
+}
+
+button.filled .button-content {
+  color: var(--surface-card);
+}
+
+/* Filled hover states for each variant */
+button.filled.primary:hover:not(.disabled):not(.loading) {
+  background-color: var(--primary-color-light);
+}
+
+button.filled.secondary:hover:not(.disabled):not(.loading) {
+  background-color: var(--secondary-color-light);
+}
+
+button.filled.success:hover:not(.disabled):not(.loading) {
+  background-color: var(--green-400);
+}
+
+button.filled.warning:hover:not(.disabled):not(.loading) {
+  background-color: var(--orange-400);
+}
+
+button.filled.danger:hover:not(.disabled):not(.loading) {
+  background-color: var(--red-400);
+}
+
+/* Outline */
+button.outline {
+  background: transparent;
+  border: 2px solid currentColor;
+  color: currentColor;
+}
+
+button.outline .button-content {
+  color: inherit;
+}
+
+button.outline:hover:not(.disabled):not(.loading) {
+  background: currentColor;
+}
+
+button.outline:hover:not(.disabled):not(.loading) .button-content {
+  color: var(--surface-card);
+}
+
+/* Rounded */
+button.rounded {
+  border-radius: 9999px;
+  background-color: currentColor;
+}
+
+button.rounded .button-content {
+  color: var(--surface-card);
+}
+
+/* Rounded hover states for each variant */
+button.rounded.primary:hover:not(.disabled):not(.loading) {
+  background-color: var(--primary-color-light);
+}
+
+button.rounded.secondary:hover:not(.disabled):not(.loading) {
+  background-color: var(--secondary-color-light);
+}
+
+button.rounded.success:hover:not(.disabled):not(.loading) {
+  background-color: var(--green-400);
+}
+
+button.rounded.warning:hover:not(.disabled):not(.loading) {
+  background-color: var(--orange-400);
+}
+
+button.rounded.danger:hover:not(.disabled):not(.loading) {
+  background-color: var(--red-400);
+}
+
+/* Text */
+button.text {
+  background: transparent;
+  padding: 0 var(--spacing-lg);
+  color: currentColor;
+  border-radius: var(--border-radius);
+}
+
+button.text .button-content {
+  color: inherit;
+}
+
+button.text:hover:not(.disabled):not(.loading) {
+  background: var(--surface-hover);
+}
+
+/* Text icon only */
+button.text.icon-only {
+  min-width: unset;
+  padding: 0;
+}
+
+button.text.icon-only.small {
+  width: 32px;
+}
+
+button.text.icon-only.medium {
+  width: 40px;
+}
+
+button.text.icon-only.large {
+  width: 48px;
+}
+
+/* Variants */
+/* Primary */
+button.primary {
+  color: var(--primary-color);
+}
+
+/* Secondary */
+button.secondary {
+  color: var(--secondary-color);
+}
+
+/* Success */
+button.success {
+  color: var(--success-color);
+}
+
+/* Warning */
+button.warning {
+  color: var(--warning-color);
+}
+
+/* Danger */
+button.danger {
+  color: var(--danger-color);
+}
+
+/* States */
+/* Focus */
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* Active */
+button:active:not(.disabled):not(.loading) {
+  transform: translateY(1px);
+}
+
+/* Disabled */
+button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Loading */
+button.loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+/* Icons */
+button i {
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.small i {
+  font-size: 1.1em;
+}
+
+button.large i {
+  font-size: 1.3em;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

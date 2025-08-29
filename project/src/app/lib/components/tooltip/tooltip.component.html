@@ -1,0 +1,23 @@
+<div 
+  class="tooltip-wrapper"
+  (mouseenter)="show()"
+  (mouseleave)="hide()"
+  (focusin)="show()"
+  (focusout)="hide()"
+>
+  <ng-content></ng-content>
+  
+  @if (isVisible) {
+    <div 
+      class="tooltip"
+      [class]="position()"
+      [class.light]="variant() === 'light'"
+      [class.dark]="variant() === 'dark'"
+      [style.max-width.px]="maxWidth()"
+      role="tooltip"
+    >
+      {{ content() }}
+      <div class="tooltip-arrow"></div>
+    </div>
+  }
+</div>

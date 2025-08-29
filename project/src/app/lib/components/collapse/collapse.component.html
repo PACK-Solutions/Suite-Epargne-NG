@@ -1,0 +1,44 @@
+<div 
+  class="collapse"
+  [class.expanded]="expanded()"
+  [class.disabled]="disabled()"
+  [class.outline]="variant() === 'outline'"
+  [class.small]="size() === 'small'"
+  [class.large]="size() === 'large'"
+  [attr.data-state]="state()"
+>
+  <button
+    class="collapse-header"
+    (click)="toggle()"
+    [attr.aria-expanded]="expanded()"
+    [attr.aria-disabled]="disabled()"
+    type="button"
+  >
+    <span class="header-content">
+      <ng-content select="[collapse-header]">
+        @if (header()) {
+          {{ header() }}
+        } @else {
+          Section pliable
+        }
+      </ng-content>
+    </span>
+    <i 
+      class="ph ph-{{ icon() }}"
+      [class.expanded]="expanded()"
+      aria-hidden="true"
+    ></i>
+  </button>
+
+  <div 
+    class="collapse-content"
+    role="region"
+    [attr.aria-hidden]="!expanded()"
+  >
+    <div class="content-wrapper">
+      <ng-content>
+        <p>Contenu de la section pliable</p>
+      </ng-content>
+    </div>
+  </div>
+</div>

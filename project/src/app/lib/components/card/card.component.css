@@ -1,0 +1,171 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-card);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Orientation */
+.card.horizontal {
+  flex-direction: row;
+}
+
+/* Side Content */
+:host ::ng-deep [card-side] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-ground);
+  min-width: 0;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+}
+
+.horizontal :host ::ng-deep [card-side] {
+  width: 200px;
+  min-width: 200px;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: var(--card-padding);
+  border-bottom: 1px solid var(--surface-border);
+  min-height: 64px;
+}
+
+.card-header.align-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.card-header.align-end {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Main Content */
+.card-content {
+  padding: var(--card-padding);
+  min-width: 0;
+  overflow: hidden;
+  flex: 1;
+}
+
+.card-content.align-center {
+  text-align: center;
+}
+
+.card-content.align-end {
+  text-align: right;
+}
+
+/* Footer */
+.card-footer {
+  display: flex;
+  padding: var(--card-padding);
+  border-top: 1px solid var(--surface-border);
+  min-height: 56px;
+}
+
+.card-footer.align-center {
+  justify-content: center;
+}
+
+.card-footer.align-end {
+  justify-content: flex-end;
+}
+
+.card-footer.align-stretch > * {
+  flex: 1;
+}
+
+/* Variants */
+.card.elevated {
+  box-shadow: var(--shadow-md);
+}
+
+.card.elevated:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card.outlined {
+  border: 1px solid var(--surface-border);
+}
+
+/* States */
+.card.hoverable:hover {
+  transform: translateY(-2px);
+}
+
+.card.interactive {
+  cursor: pointer;
+}
+
+.card.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.card.collapsed .card-content {
+  display: none;
+}
+
+/* Loader */
+.card-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.loader {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--surface-border);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Collapse Button */
+.card-collapse-button {
+  background: transparent;
+  border: none;
+  color: var(--text-color-secondary);
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  margin-left: auto;
+  transition: all 0.2s ease;
+}
+
+.card-collapse-button:hover {
+  background: var(--surface-hover);
+  color: var(--text-color);
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card.horizontal {
+    flex-direction: column;
+  }
+  
+  .horizontal :host ::ng-deep [card-side] {
+    width: 100%;
+    min-width: 0;
+  }
+}

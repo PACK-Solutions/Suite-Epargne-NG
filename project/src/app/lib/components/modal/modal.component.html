@@ -1,0 +1,61 @@
+<div
+  class="modal-backdrop"
+  [class.open]="open()"
+  (click)="handleBackdropClick($event)"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-hidden]="!open()"
+  [attr.aria-labelledby]="title() ? 'modal-title' : undefined"
+  [attr.data-state]="state()"
+>
+  <div
+    class="modal-container"
+    [class.small]="size() === 'small'"
+    [class.large]="size() === 'large'"
+    role="document"
+  >
+    <div #modalContent class="modal-content-wrapper">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">
+          <ng-content select="[modal-title]">
+            @if (title()) {
+            {{ title() }}
+            } @else { Modal Title }
+          </ng-content>
+        </h2>
+        @if (showClose()) {
+        <button
+          class="modal-close"
+          (click)="handleClose()"
+          [attr.aria-label]="dismissLabel()"
+        >
+          <i class="ph ph-x" aria-hidden="true"></i>
+        </button>
+        }
+      </div>
+
+      <div class="modal-content">
+        <ng-content>
+          <p>
+            Modal content goes here. You can replace this with your own content.
+          </p>
+        </ng-content>
+      </div>
+
+      @if (showFooter() && !hasCustomFooter()) {
+      <div class="modal-footer">
+        <psh-button appearance="outline" variant="primary" size="medium" (clicked)="handleClose()">
+          {{ cancelLabel() }}
+        </psh-button>
+        <psh-button appearance="filled" variant="primary" size="medium" (clicked)="handleConfirm()">
+          {{ confirmLabel() }}
+        </psh-button>
+      </div>
+      } @if (showFooter() && hasCustomFooter()) {
+      <div class="modal-footer">
+        <ng-content select="[modal-footer]"></ng-content>
+      </div>
+      }
+    </div>
+  </div>
+</div>

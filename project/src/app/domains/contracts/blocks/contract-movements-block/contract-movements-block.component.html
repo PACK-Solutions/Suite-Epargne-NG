@@ -1,0 +1,29 @@
+<psh-card variant="outlined">
+  <div card-header>
+    <h2>Mouvements</h2>
+    @if (showActions()) {
+      <psh-button 
+        appearance="filled" 
+        variant="primary" 
+        icon="plus"
+        size="small"
+        (clicked)="handleNewMovement()"
+      >
+        Nouveau mouvement
+      </psh-button>
+    }
+  </div>
+  
+  <psh-table
+    [columns]="movementsColumns"
+    [data]="movementsData()"
+    [globalSearch]="true"
+    globalSearchPlaceholder="Rechercher un mouvement..."
+    emptyMessage="Aucun mouvement trouvé"
+    variant="default"
+    size="medium"
+    [hoverable]="true"
+    [striped]="true"
+    (rowClick)="handleRowClick($event.row)"
+  ></psh-table>
+</psh-card>

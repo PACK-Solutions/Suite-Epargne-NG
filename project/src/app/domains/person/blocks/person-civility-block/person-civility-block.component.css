@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Custom styles for this specific block */
+:host ::ng-deep .info-card-title {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color-light));
+  color: white;
+}
+
+:host ::ng-deep .info-card-title i {
+  color: white;
+}

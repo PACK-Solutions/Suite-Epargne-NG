@@ -1,0 +1,13 @@
+<div class="layout-container">
+  <app-header></app-header>
+  <div class="layout-content">
+    <app-sidebar></app-sidebar>
+    <app-content></app-content>
+  </div>
+  
+  <!-- Mobile overlay for sidebar -->
+  <div class="mobile-overlay" 
+    [class.active]="isMobileMenuOpen()" 
+    (click)="closeMobileMenu()">
+  </div>
+</div>

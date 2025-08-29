@@ -1,0 +1,47 @@
+<div class="global-persons">
+  <div class="page-header">
+    <div class="page-title">
+      <div class="title-content">
+        <i class="ph ph-users" aria-hidden="true"></i>
+        <div class="title-text">
+          <h1>Gestion des Personnes</h1>
+          <p class="title-subtitle">Gérer les personnes physiques et morales</p>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <psh-button appearance="outline" variant="primary" (clicked)="createPerson()">
+        Nouvelle personne
+      </psh-button>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <psh-input
+      [value]="searchTerm()"
+      (valueChange)="onSearch($event)"
+      placeholder="Rechercher une personne ou entité..."
+      iconEnd="magnifying-glass"
+      [fullWidth]="true"
+      size="large"
+    >
+      <span input-label>Recherche</span>
+    </psh-input>
+  </div>
+
+  <div class="content">
+    <div class="persons-table">
+      <psh-table
+        [columns]="allPersonsColumns"
+        [data]="allPersonsData()"
+        [globalSearch]="false"
+        emptyMessage="Aucune personne trouvée"
+        variant="outline"
+        size="medium"
+        [hoverable]="true"
+        [striped]="true"
+        (rowClick)="navigateToPerson($event.row)"
+      ></psh-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div 
+  class="sidebar"
+  [class.open]="open()"
+  [class.fixed]="effectiveMode() === 'fixed'"
+  [class.overlay]="effectiveMode() === 'overlay'"
+  [class.collapsible]="effectiveMode() === 'collapsible'"
+  [class.left]="position() === 'left'"
+  [class.right]="position() === 'right'"
+  [style.width]="width()"
+  [style.--sidebar-width]="width()"
+  role="complementary"
+  [attr.aria-hidden]="!open()"
+  [attr.aria-expanded]="open()"
+  [attr.data-state]="state()"
+>
+  <div class="sidebar-content">
+    <ng-content></ng-content>
+  </div>
+
+  @if (effectiveMode() === 'collapsible') {
+    <button
+      type="button"
+      class="collapse-button"
+      (click)="toggleSidebar()"
+      [attr.aria-label]="open() ? 'Réduire le menu' : 'Développer le menu'"
+    >
+      @if (position() === 'left') {
+        <i 
+          class="ph"
+          [class.ph-caret-right]="!open()"
+          [class.ph-caret-left]="open()"
+          aria-hidden="true"
+        ></i>
+      } @else {
+        <i 
+          class="ph"
+          [class.ph-caret-left]="!open()"
+          [class.ph-caret-right]="open()"
+          aria-hidden="true"
+        ></i>
+      }
+    </button>
+  }
+</div>
+
+@if (effectiveMode() === 'overlay' && open()) {
+  <div 
+    class="sidebar-backdrop"
+    role="presentation"
+    (click)="closeSidebar()"
+  ></div>
+}

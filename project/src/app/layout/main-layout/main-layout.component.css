@@ -1,0 +1,92 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.layout-content {
+  width:100%;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--surface-ground);
+}
+
+.main-content {
+  width:100%;
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--surface-ground);
+  transition: all 0.3s ease;
+}
+
+/* Add a semi-transparent overlay when mobile menu is open */
+.mobile-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+@media (max-width: 768px) {
+  .layout-container {
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .layout-content {
+    width: 100vw;
+    position: relative;
+    height: calc(100vh - 64px);
+    overflow: hidden;
+  }
+  
+  .main-content {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Prevent content from moving when sidebar is open */
+  .main-content.sidebar-open {
+    transform: translateX(0);
+    overflow: hidden;
+  }
+  
+  /* Make sidebar appear on top of content on mobile */
+  app-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1001;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-overlay {
+    display: none !important;
+  }
+}

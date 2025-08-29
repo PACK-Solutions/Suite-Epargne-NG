@@ -1,0 +1,320 @@
+.select-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.select-container.full-width {
+  max-width: none;
+}
+
+.select-label {
+  display: block;
+  color: var(--text-color);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Style pour l'astérisque des champs requis */
+.select-label ::ng-deep [select-label]::after {
+  content: '*';
+  color: var(--danger-color);
+  margin-left: var(--spacing-xxs);
+}
+
+.select-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--spacing-md);
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.select-trigger:hover:not(.disabled) {
+  border-color: var(--primary-color);
+}
+
+.select-trigger:focus-visible {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.select-value {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex: 1;
+  min-width: 0;
+  margin-right: var(--spacing-sm);
+}
+
+.select-value span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-color);
+}
+
+.select-value span.placeholder {
+  color: var(--text-color-secondary);
+}
+
+.select-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.select-arrow {
+  transition: transform 0.2s ease;
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+  flex-shrink: 0;
+}
+
+.select-arrow.open {
+  transform: rotate(180deg);
+}
+
+.select-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-color-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.select-clear:hover {
+  background: rgba(var(--danger-color-rgb), 0.1);
+  color: var(--danger-color);
+}
+
+.select-dropdown {
+  position: absolute;
+  top: calc(100% + var(--spacing-xs));
+  left: 0;
+  width: 100%;
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.select-search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.select-search input {
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  background: var(--surface-ground);
+}
+
+.select-search input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.select-options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select-group {
+  padding: var(--spacing-xs) 0;
+}
+
+.select-group-label {
+  padding: var(--spacing-xs) var(--spacing-md);
+  color: var(--text-color-secondary);
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+}
+
+.select-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-option:hover:not(.disabled) {
+  background: var(--surface-hover);
+}
+
+.select-option.selected {
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+}
+
+.select-option.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.select-option i {
+  font-size: 1.2rem;
+  color: var(--text-color-secondary);
+  flex-shrink: 0;
+}
+
+.select-option.selected i {
+  color: var(--primary-color);
+}
+
+.option-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.option-label {
+  color: inherit;
+  font-size: var(--font-size-base);
+}
+
+.option-description {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.select-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+}
+
+.selected .select-checkbox {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+.select-no-results {
+  padding: var(--spacing-md);
+  text-align: center;
+  color: var(--text-color-secondary);
+}
+
+.select-loading {
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.select-loader {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--surface-border);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+.select-error {
+  margin-top: var(--spacing-xs);
+  color: var(--danger-color);
+  font-size: var(--font-size-sm);
+}
+
+.select-success {
+  margin-top: var(--spacing-xs);
+  color: var(--success-color);
+  font-size: var(--font-size-sm);
+}
+
+.select-hint {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* Virtual Scroll */
+.virtual-scroll {
+  position: relative;
+  overflow: hidden;
+}
+
+/* States */
+.select-container.disabled .select-trigger {
+  background: var(--surface-ground);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.select-container.error .select-trigger {
+  border-color: var(--danger-color);
+}
+
+.select-container.success .select-trigger {
+  border-color: var(--success-color);
+}
+
+/* Sizes */
+.select-container.small .select-trigger {
+  height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.select-container.large .select-trigger {
+  height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .select-container {
+    max-width: none;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,89 @@
+<div 
+  class="stepper-container"
+  [class.vertical]="orientation() === 'vertical'"
+  [class.numbered]="variant() === 'numbered'"
+  [class.progress]="variant() === 'progress'"
+  [class.icon-top]="variant() === 'icon-top'"
+>
+  <!-- Header -->
+  <div class="stepper-header" role="tablist">
+    @for (step of steps(); track $index; let i = $index) {
+      <div 
+        class="step-header"
+        [class.active]="i === activeStep()"
+        [class.completed]="step.completed"
+        [class.disabled]="step.disabled"
+        [class.error]="!!step.error"
+        [class.warning]="!!step.warning"
+        [class.success]="!!step.success"
+      >
+        <!-- Indicator -->
+        <div 
+          class="step-indicator"
+          role="tab"
+          [attr.aria-selected]="i === activeStep()"
+          [attr.aria-disabled]="step.disabled"
+          [attr.aria-label]="getStepAriaLabel(step, i)"
+          (click)="canActivateStep(i) && !step.disabled && goToStep(i)"
+        >
+          @if (variant() === 'numbered') {
+            <span class="step-number">{{ i + 1 }}</span>
+          } @else if (step.completed) {
+            <i class="ph ph-check" aria-hidden="true"></i>
+          } @else if (step.icon) {
+            <i class="ph ph-{{ step.icon }}" aria-hidden="true"></i>
+          } @else {
+            <span class="step-dot"></span>
+          }
+        </div>
+
+        <!-- Label -->
+        <div class="step-label">
+          <span class="step-title">{{ step.title }}</span>
+          @if (step.subtitle) {
+            <span class="step-subtitle">{{ step.subtitle }}</span>
+          }
+          @if (step.error) {
+            <span class="step-error" [id]="'error-' + i">{{ step.error }}</span>
+          }
+          @if (step.warning) {
+            <span class="step-warning" [id]="'warning-' + i">{{ step.warning }}</span>
+          }
+          @if (step.success) {
+            <span class="step-success" [id]="'success-' + i">{{ step.success }}</span>
+          }
+        </div>
+
+        <!-- Connector -->
+        @if (i < steps().length - 1) {
+          <div class="step-connector">
+            <span class="connector-line"></span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="stepper-content">
+    @for (step of steps(); track $index; let i = $index) {
+      <div 
+        class="step-content"
+        role="tabpanel"
+        [class.active]="i === activeStep()"
+        [attr.aria-labelledby]="'step-' + i"
+        [attr.id]="'panel-' + i"
+        [attr.tabindex]="i === activeStep() ? 0 : -1"
+        [attr.hidden]="i !== activeStep()"
+      >
+        @if (elementRef.nativeElement.querySelector('[stepContent]')) {
+          <ng-content select="[stepContent]"></ng-content>
+        } @else {
+          <div class="default-content">
+            <p>Contenu de l'étape {{ i + 1 }}</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

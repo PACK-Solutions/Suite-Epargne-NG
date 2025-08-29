@@ -1,0 +1,107 @@
+<div class="dashboard">
+  <div class="dashboard-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Tableau de Bord</h1>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <div class="search-wrapper">
+      <psh-input
+        [value]="searchTerm()"
+        (valueChange)="onSearchChange($event)"
+        (keydown)="onSearchKeydown($event)"
+        placeholder="Rechercher une personne, contrat, numéro..."
+        iconEnd="magnifying-glass"
+        size="large"
+        [fullWidth]="true"
+      >
+      </psh-input>
+    </div>
+    
+    @if (searchTerm() && searchResults()) {
+      <div class="search-results">
+        <div class="results-header">
+          <h3>Résultats pour "{{ searchTerm() }}"</h3>
+          <span class="results-count">{{ searchResults()!.total }} résultat(s)</span>
+        </div>
+        
+        <div class="results-content">
+          @if (searchResults()!.persons.length > 0) {
+            <div class="results-section">
+              <h4><i class="ph ph-users"></i> Personnes ({{ searchResults()!.persons.length }})</h4>
+              <div class="results-list">
+                @for (person of searchResults()!.persons; track person.id) {
+                  <div 
+                    class="result-item" 
+                    [class.focused]="isResultFocused($index)"
+                    [attr.data-index]="$index"
+                    (click)="navigateToPerson(person)"
+                  >
+                    <div class="result-info">
+                      <span class="result-title">{{ person.firstName }} {{ person.lastName }}</span>
+                      <span class="result-subtitle">{{ person.communication?.email || 'Email non renseigné' }}</span>
+                    </div>
+                    <i class="ph ph-arrow-right result-arrow"></i>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          
+          @if (searchResults()!.legalPersons.length > 0) {
+            <div class="results-section">
+              <h4><i class="ph ph-buildings"></i> Entités ({{ searchResults()!.legalPersons.length }})</h4>
+              <div class="results-list">
+                @for (entity of searchResults()!.legalPersons; track entity.id; let entityIndex = $index) {
+                  <div 
+                    class="result-item" 
+                    [class.focused]="isResultFocused(searchResults()!.persons.length + entityIndex)"
+                    [attr.data-index]="searchResults()!.persons.length + entityIndex"
+                    (click)="navigateToLegalPerson(entity)"
+                  >
+                    <div class="result-info">
+                      <span class="result-title">{{ entity.raisonSociale }}</span>
+                      <span class="result-subtitle">{{ entity.siret }}</span>
+                    </div>
+                    <i class="ph ph-arrow-right result-arrow"></i>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          
+          @if (searchResults()!.contracts.length > 0) {
+            <div class="results-section">
+              <h4><i class="ph ph-gavel"></i> Contrats ({{ searchResults()!.contracts.length }})</h4>
+              <div class="results-list">
+                @for (contract of searchResults()!.contracts; track contract.id; let contractIndex = $index) {
+                  <div 
+                    class="result-item" 
+                    [class.focused]="isResultFocused(searchResults()!.persons.length + searchResults()!.legalPersons.length + contractIndex)"
+                    [attr.data-index]="searchResults()!.persons.length + searchResults()!.legalPersons.length + contractIndex"
+                    (click)="navigateToContract(contract)"
+                  >
+                    <div class="result-info">
+                      <span class="result-title">{{ contract.contractNumber }}</span>
+                      <span class="result-subtitle">{{ contract.product }} - {{ contract.acquiredSavings.toLocaleString('fr-FR') }}€</span>
+                    </div>
+                    <i class="ph ph-arrow-right result-arrow"></i>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          
+          @if (searchResults()!.total === 0) {
+            <div class="no-results">
+              <i class="ph ph-magnifying-glass"></i>
+              <p>Aucun résultat trouvé pour "{{ searchTerm() }}"</p>
+              <small>Essayez avec d'autres mots-clés</small>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

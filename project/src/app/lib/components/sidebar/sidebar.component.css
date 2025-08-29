@@ -1,0 +1,219 @@
+:host {
+  display: contents;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background: var(--surface-card);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Position variants */
+.sidebar.left {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.sidebar.right {
+  right: 0;
+  transform: translateX(100%);
+}
+
+/* Mode variants */
+.sidebar.fixed {
+  position: relative;
+  transform: none !important;
+  height: 100%;
+  width: var(--sidebar-width);
+  border: 1px solid var(--surface-border);
+}
+
+.sidebar.fixed.left {
+  border-right: 1px solid var(--surface-border);
+  border-left: none;
+}
+
+.sidebar.fixed.right {
+  border-left: 1px solid var(--surface-border);
+  border-right: none;
+}
+
+.sidebar.overlay {
+  box-shadow: var(--shadow-lg);
+}
+
+.sidebar.collapsible {
+  position: relative;
+  height: 100%;
+  width: var(--sidebar-width);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsible.left {
+  border-right: 1px solid var(--surface-border);
+}
+
+.sidebar.collapsible.right {
+  border-left: 1px solid var(--surface-border);
+}
+
+.sidebar.collapsible:not(.open) {
+  width: 64px;
+}
+
+.sidebar.collapsible:not(.open) .sidebar-content {
+  opacity: 0;
+}
+
+.sidebar.collapsible.left:not(.open) .sidebar-content {
+  transform: translateX(-10px);
+}
+
+.sidebar.collapsible.right:not(.open) .sidebar-content {
+  transform: translateX(10px);
+}
+
+/* Open state */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Content */
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: var(--sidebar-width);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Collapse button */
+.collapse-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar.left .collapse-button {
+  right: -16px;
+}
+
+.sidebar.right .collapse-button {
+  left: -16px;
+}
+
+.collapse-button:hover {
+  transform: translateY(-50%) scale(1.15);
+  background: var(--primary-color-light);
+  box-shadow: var(--shadow-lg);
+}
+
+.collapse-button i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(var(--surface-900-rgb), 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100vw !important;
+    max-width: 100vw;
+    /* Fix top position to be under header */
+    height: calc(100vh - 64px);
+    top: 64px;
+    z-index: 1000;
+    position: fixed;
+  }
+
+  /* For overlay mode on mobile, ensure the sidebar covers the content properly */
+  .sidebar.overlay {
+    position: fixed;
+    box-shadow: var(--shadow-lg);
+    border-right: 1px solid var(--surface-border);
+  }
+
+  /* Ensure sidebar is hidden when closed on mobile */
+  .sidebar.overlay:not(.open) {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.overlay.open {
+    transform: translateX(0);
+  }
+  /* Make background darker on mobile */
+  .sidebar-backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+  
+  .sidebar-content {
+    /* Ensure content takes full height and handles overflow properly */
+    max-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    min-height: 100%;
+    padding-top: var(--spacing-md);
+  }
+  
+  /* Improve touch targets on mobile */
+  .sidebar-link,
+  .sidebar-sublink {
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  /* Better spacing for mobile */
+  .sidebar-menu {
+    gap: var(--spacing-xxs);
+  }
+  
+  .sidebar-submenu {
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
+  }
+}

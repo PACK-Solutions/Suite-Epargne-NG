@@ -1,0 +1,27 @@
+<div class="toast-container" [class]="getPositionClass()">
+  @for (toast of toasts(); track toast.id) {
+    <div 
+      class="toast-item"
+      [class]="toast.type"
+      role="alert"
+      aria-live="polite"
+      [style.--progress-duration]="toast.duration + 'ms'"
+    >
+      <i 
+        class="ph ph-{{ toast.icon || getDefaultIcon(toast.type) }} toast-icon"
+        aria-hidden="true"
+      ></i>
+      <div class="toast-content">
+        {{ toast.message }}
+      </div>
+      <button
+        type="button"
+        class="toast-close"
+        (click)="handleDismiss(toast.id)"
+        aria-label="Fermer la notification"
+      >
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
+</div>

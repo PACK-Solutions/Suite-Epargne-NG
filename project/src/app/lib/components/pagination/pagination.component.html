@@ -1,0 +1,85 @@
+<nav 
+  class="pagination"
+  [class.small]="size() === 'small'"
+  [class.large]="size() === 'large'"
+  [class.outline]="variant() === 'outline'"
+  role="navigation"
+  [attr.aria-label]="'Pagination navigation'"
+  [attr.data-state]="state()"
+>
+  @if (showItemsPerPage()) {
+    <div class="items-per-page">
+      <select
+        [value]="itemsPerPage()"
+        (change)="onItemsPerPageChange($event)"
+        [attr.aria-label]="itemsPerPageLabel()"
+      >
+        @for (option of itemsPerPageOptions(); track option) {
+          <option [value]="option">
+            {{ option }} {{ itemsLabel() }}
+          </option>
+        }
+      </select>
+    </div>
+  }
+
+  @if (showFirstLast()) {
+    <button
+      class="page-button"
+      [class.disabled]="currentPage() === 1"
+      (click)="goToPage(1)"
+      [attr.aria-label]="firstLabel()"
+      [disabled]="currentPage() === 1"
+    >
+      <i class="ph ph-caret-double-left" aria-hidden="true"></i>
+    </button>
+  }
+
+  @if (showPrevNext()) {
+    <button
+      class="page-button"
+      [class.disabled]="currentPage() === 1"
+      (click)="goToPage(currentPage() - 1)"
+      [attr.aria-label]="previousLabel()"
+      [disabled]="currentPage() === 1"
+    >
+      <i class="ph ph-caret-left" aria-hidden="true"></i>
+    </button>
+  }
+
+  @for (page of pages(); track page) {
+    <button
+      class="page-button"
+      [class.active]="page === currentPage()"
+      (click)="goToPage(page)"
+      [attr.aria-current]="page === currentPage() ? 'page' : null"
+      [attr.aria-label]="pageLabel() + ' ' + page"
+    >
+      {{ page }}
+    </button>
+  }
+
+  @if (showPrevNext()) {
+    <button
+      class="page-button"
+      [class.disabled]="currentPage() === totalPages()"
+      (click)="goToPage(currentPage() + 1)"
+      [attr.aria-label]="nextLabel()"
+      [disabled]="currentPage() === totalPages()"
+    >
+      <i class="ph ph-caret-right" aria-hidden="true"></i>
+    </button>
+  }
+
+  @if (showFirstLast()) {
+    <button
+      class="page-button"
+      [class.disabled]="currentPage() === totalPages()"
+      (click)="goToPage(totalPages())"
+      [attr.aria-label]="lastLabel()"
+      [disabled]="currentPage() === totalPages()"
+    >
+      <i class="ph ph-caret-double-right" aria-hidden="true"></i>
+    </button>
+  }
+</nav>

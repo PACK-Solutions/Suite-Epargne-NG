@@ -1,0 +1,36 @@
+<psh-info-card 
+  title="Informations de Civilité" 
+  [data]="civilityData()"
+  cardVariant="outlined"
+  icon="user"
+>
+  <div card-actions>
+    @if (editable() && !editMode()) {
+      <psh-button 
+        appearance="text" 
+        variant="primary" 
+        icon="pencil"
+        (clicked)="handleEdit()"
+      >
+        Modifier
+      </psh-button>
+    }
+    
+    @if (editMode()) {
+      <psh-button 
+        appearance="text" 
+        variant="secondary" 
+        (clicked)="handleCancel()"
+      >
+        Annuler
+      </psh-button>
+      <psh-button 
+        appearance="filled" 
+        variant="primary" 
+        (clicked)="handleSave()"
+      >
+        Enregistrer
+      </psh-button>
+    }
+  </div>
+</psh-info-card>

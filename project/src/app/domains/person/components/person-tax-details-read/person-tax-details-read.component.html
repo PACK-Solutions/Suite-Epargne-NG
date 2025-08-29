@@ -1,0 +1,22 @@
+<div class="person-tax-details">
+  <div class="view-content">
+    @if (personDetails()) {
+      <psh-info-card 
+        title="Informations Fiscales" 
+        [data]="taxData()"
+        cardVariant="outlined"
+        icon="calculator"
+      >
+        <div card-actions>
+          <psh-button appearance="text" variant="primary" (clicked)="editTaxInfo()">
+            Modifier
+          </psh-button>
+        </div>
+      </psh-info-card>
+    } @else {
+      <div class="error-state">
+        <p>Personne non trouvée</p>
+      </div>
+    }
+  </div>
+</div>

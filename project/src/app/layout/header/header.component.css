@@ -1,0 +1,92 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--surface-card);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-sm);
+  height: 64px;
+  position: relative;
+  z-index: 20;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+}
+
+.header-title img {
+  height: 30px;
+  max-width: 160px;
+  object-fit: contain;
+  margin-right: var(--spacing-md);
+}
+
+.app-name {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Styling for dropdown items */
+/* Hamburger button styles */
+.hamburger-button {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  margin-right: var(--spacing-md);
+  transition: all 0.3s ease;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background: var(--text-color);
+  transition: all 0.3s ease;
+  position: relative;
+  transform-origin: center;
+  border-radius: 3px;
+}
+
+.hamburger-button.active .hamburger-line:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-button.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-button.active .hamburger-line:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .hamburger-button {
+    display: flex;
+  }
+  
+  .app-header {
+    padding: var(--spacing-md);
+  }
+  
+  /* Keep the username text hidden, but keep the avatar visible */
+  .header-actions > psh-dropdown span[dropdown-trigger] {
+    display: none;
+  }
+}

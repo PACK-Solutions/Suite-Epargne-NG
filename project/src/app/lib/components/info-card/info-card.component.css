@@ -1,0 +1,162 @@
+.info-card-title {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--surface-ground);
+  width: 100%;
+  border-bottom: 1px solid var(--surface-border);
+  text-align: left;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.info-card-title i {
+  font-size: 1.1rem;
+}
+
+.info-card-content {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm);
+  flex: 1;
+  background-color: var(--surface-card);
+}
+
+.info-card-row {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xxs) 0;
+  border-bottom: 1px dotted rgba(var(--surface-border), 0.5);
+  min-height: 32px;
+}
+
+.info-card-label {
+  font-weight: 500;
+  color: var(--text-color-secondary);
+  width: 40%;
+  font-size: 0.85rem;
+  padding-right: var(--spacing-xs);
+}
+
+.info-card-value {
+  font-weight: 500;
+  color: var(--text-color);
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.85rem;
+  text-align: left;
+  padding-left: var(--spacing-sm);
+  position: relative;
+}
+
+/* Add subtle connector line between label and value */
+.info-card-value::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 1px;
+  background-color: var(--surface-border);
+}
+
+.info-card-empty-state {
+  padding: var(--spacing-sm);
+  text-align: center;
+  color: var(--text-color-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--surface-ground), 0.3);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-sm);
+}
+
+/* Make sure the card component fills the entire height */
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Make the card component use the full width and height */
+:host ::ng-deep psh-card {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+  border-radius: var(--border-radius);
+  background-color: white;
+  border: 1px solid var(--surface-border);
+}
+
+:host ::ng-deep .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+:host ::ng-deep .card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  padding: 0 !important;
+}
+
+/* Style for actions passed through from parent */
+:host ::ng-deep [card-actions] {
+  margin-top: auto;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--surface-50);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid var(--surface-border);
+}
+
+@media (max-width: 768px) {
+  .info-card-title {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+  
+  .info-card-row {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    min-height: 28px;
+  }
+  
+  .info-card-label {
+    font-size: var(--font-size-xs);
+    width: 45%;
+  }
+  
+  .info-card-value {
+    font-size: var(--font-size-xs);
+    width: 55%;
+  }
+  
+  .info-card-content {
+    padding: var(--spacing-xs);
+  }
+  
+  .info-card-empty-state {
+    padding: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    margin: var(--spacing-xs);
+  }
+}

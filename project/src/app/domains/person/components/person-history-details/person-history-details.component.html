@@ -1,0 +1,23 @@
+<div class="person-history-details">
+  <div class="view-content">
+    @if (personDetails()) {
+      <div class="history-section">
+        <h2>Historique des modifications</h2>
+        <psh-table
+          [columns]="historyColumns"
+          [data]="historyData()"
+          [globalSearch]="true"
+          globalSearchPlaceholder="Rechercher dans l'historique..."
+          emptyMessage="Aucun événement dans l'historique"
+          variant="outline"
+          size="medium"
+          [hoverable]="true"
+        ></psh-table>
+      </div>
+    } @else {
+      <div class="error-state">
+        <p>Personne non trouvée</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- Section moderne sans card wrapper -->
+<div class="contracts-section">
+  <!-- Header avec titre et action -->
+  <div class="section-header">
+    <h2 class="section-title">
+      <i class="ph ph-files" aria-hidden="true"></i>
+      Contrats
+    </h2>
+    @if (showActions()) {
+      <psh-button 
+        appearance="filled" 
+        variant="primary" 
+        icon="plus"
+        size="small"
+        (clicked)="handleNewContract()"
+      >
+        Nouveau contrat
+      </psh-button>
+    }
+  </div>
+  
+  <!-- Liste des contrats ou état vide -->
+  @if (hasContracts()) {
+    <div class="contracts-list">
+      @for (contract of contracts(); track contract.id) {
+        <person-contract-card 
+          [contract]="contract"
+          (contractClicked)="handleContractClick($event)"
+        ></person-contract-card>
+      }
+    </div>
+  } @else {
+    <div class="empty-contracts">
+      <div class="empty-icon">
+        <i class="ph ph-files" aria-hidden="true"></i>
+      </div>
+      <div class="empty-content">
+        <p class="empty-title">Aucun contrat souscrit</p>
+        <p class="empty-subtitle">Commencez par créer le premier contrat pour cette personne</p>
+        @if (showActions()) {
+          <psh-button 
+            appearance="filled" 
+            variant="primary" 
+            icon="plus"
+            (clicked)="handleNewContract()"
+          >
+            Créer le premier contrat
+          </psh-button>
+        }
+      </div>
+    </div>
+  }
+</div>

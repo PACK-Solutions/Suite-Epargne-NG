@@ -1,0 +1,243 @@
+.sidebar-nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm) 0;
+  background-color: var(--surface-card);
+  color: var(--text-color);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.sidebar-item {
+  position: relative;
+  width: 100%;
+}
+
+/* Style de base pour tous les liens */
+.sidebar-link, .sidebar-sublink {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  min-height: 44px;
+  position: relative;
+  width: 100%;
+}
+
+.sidebar-link {
+  font-weight: 500;
+  border-radius: var(--border-radius);
+}
+
+/* Effets hover pour les liens principaux */
+.sidebar-link:hover {
+  background: var(--surface-hover);
+  color: var(--primary-color);
+}
+
+/* Style actif pour les liens principaux */
+.sidebar-link.active {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+  font-weight: 600;
+}
+
+/* Icônes */
+.sidebar-link i, .sidebar-sublink i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+/* Submenu */
+.sidebar-submenu {
+  list-style: none;
+  padding: 0 var(--spacing-md) var(--spacing-sm) var(--spacing-md);
+  margin: 0;
+  border-left: 1px solid var(--surface-border);
+  border-right: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+  border-radius: var(--border-radius);
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--surface-ground);
+}
+
+.sidebar-item.expanded > .sidebar-submenu {
+  max-height: 1000px;
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Style pour les sous-liens */
+.sidebar-sublink {
+  font-size: 0.9em;
+  font-weight: 400;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  color: var(--text-color-secondary);
+}
+
+.sidebar-sublink:hover {
+  background: var(--surface-hover);
+  color: var(--primary-color);
+}
+
+.sidebar-sublink.active {
+  color: var(--primary-color);
+  font-weight: 500;
+  background: var(--surface-hover);
+}
+
+/* Style spécifique pour le header du submenu */
+.sidebar-submenu-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  color: var(--text-color);
+  font-weight: 600;
+  margin-left: var(--spacing-xs);
+}
+
+.sidebar-submenu-header i {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+/* Caret pour les menus déroulants */
+.sidebar-caret {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  color: inherit;
+}
+
+.sidebar-caret.expanded {
+  transform: rotate(180deg);
+  opacity: 0.9;
+}
+
+/* Label */
+.sidebar-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+/* Divider */
+.sidebar-divider {
+  height: 1px;
+  background-color: var(--surface-border);
+  margin: var(--spacing-sm) var(--spacing-md);
+  opacity: 0.4;
+}
+
+/* Style pour le titre mobile */
+.sidebar-title {
+  color: var(--text-color);
+}
+
+/* Style pour le bouton de fermeture mobile */
+.sidebar-close-button {
+  color: var(--text-color-secondary);
+}
+
+.sidebar-close-button:hover {
+  background: var(--surface-hover);
+  color: var(--text-color);
+}
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .sidebar-nav {
+    padding: var(--spacing-xs) 0;
+  }
+  
+  .sidebar-link, .sidebar-sublink {
+    padding: var(--spacing-sm) var(--spacing-sm);
+  }
+  
+  .sidebar-submenu {
+    padding-left: var(--spacing-md);
+  }
+}
+
+/* Header mobile avec croix */
+.sidebar-mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--surface-ground);
+  border-bottom: 1px solid var(--surface-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sidebar-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.sidebar-title::before {
+  content: '📍';
+  font-size: 1.2em;
+}
+
+.sidebar-close-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--text-color-secondary);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 1.5rem;
+}
+
+.sidebar-close-button:hover {
+  background: var(--surface-hover);
+  color: var(--text-color);
+  transform: scale(1.05);
+}
+
+.sidebar-close-button:active {
+  transform: scale(0.95);
+}
+
+/* Styling for person items */

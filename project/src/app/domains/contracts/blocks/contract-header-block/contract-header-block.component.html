@@ -1,0 +1,67 @@
+<psh-card variant="elevated" [hoverable]="false">
+  <div card-header>
+    <div class="contract-title">
+      <h1>{{ contract().contractNumber }}</h1>
+      <psh-tag [variant]="statusVariant()">
+        {{ statusLabel() }}
+      </psh-tag>
+    </div>
+    
+    @if (showActions()) {
+      <div class="header-actions">
+        <psh-button 
+          appearance="text" 
+          variant="primary" 
+          icon="printer"
+          iconPosition="only"
+          (clicked)="handlePrint()"
+          ariaLabel="Imprimer le contrat"
+        ></psh-button>
+        
+        <psh-button 
+          appearance="text" 
+          variant="primary" 
+          icon="download"
+          iconPosition="only"
+          (clicked)="handleExport()"
+          ariaLabel="Exporter le contrat"
+        ></psh-button>
+        
+        <psh-button 
+          appearance="filled" 
+          variant="primary" 
+          icon="pencil"
+          (clicked)="handleEdit()"
+        >
+          Modifier
+        </psh-button>
+      </div>
+    }
+  </div>
+  
+  <div class="contract-summary">
+    <div class="summary-grid">
+      <div class="summary-item">
+        <label>Produit</label>
+        <span>{{ contract().product }}</span>
+      </div>
+      
+      <div class="summary-item">
+        <label>Épargne acquise</label>
+        <span class="amount">{{ formattedSavings() }}</span>
+      </div>
+      
+      <div class="summary-item">
+        <label>Date d'effet</label>
+        <span>{{ formattedStartDate() }}</span>
+      </div>
+      
+      @if (contract().endDate) {
+        <div class="summary-item">
+          <label>Date de fin</label>
+          <span>{{ contract().endDate!.toLocaleDateString('fr-FR') }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</psh-card>

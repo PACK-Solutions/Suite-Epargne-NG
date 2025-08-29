@@ -1,0 +1,37 @@
+<div class="person-address-details">
+  <div class="view-content">
+    @if (personDetails()) {
+      <div class="info-cards-grid">
+        <psh-info-card 
+          title="Adresse" 
+          [data]="addressData()"
+          cardVariant="outlined"
+          icon="map-pin"
+        >
+          <div card-actions>
+            <psh-button appearance="text" variant="primary" (clicked)="editAddress()">
+              Modifier
+            </psh-button>
+          </div>
+        </psh-info-card>
+
+        <psh-info-card 
+          title="Communication" 
+          [data]="communicationData()"
+          cardVariant="outlined"
+          icon="phone"
+        >
+          <div card-actions>
+            <psh-button appearance="text" variant="primary" (clicked)="editAddress()">
+              Modifier
+            </psh-button>
+          </div>
+        </psh-info-card>
+      </div>
+    } @else {
+      <div class="error-state">
+        <p>Personne non trouvée</p>
+      </div>
+    }
+  </div>
+</div>

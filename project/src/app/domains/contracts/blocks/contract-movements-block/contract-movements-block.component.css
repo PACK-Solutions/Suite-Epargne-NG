@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+:host ::ng-deep .card-header h2 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+:host ::ng-deep .card-header h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}

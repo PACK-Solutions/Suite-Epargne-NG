@@ -1,0 +1,44 @@
+{
+  "name": "@your-org/suite-epargne-ng",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Suite Epargne Angular Application",
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/suite-epargne-ng.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "scripts": {
+    "build": "ng build",
+    "dev": "ng serve --configuration development",
+    "build:lib": "ng build ps-helix",
+    "publish:lib": "cd dist/ps-helix && npm publish",
+    "watch:lib": "ng build ps-helix --watch"
+  },
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/common": "^19.1.0", 
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@phosphor-icons/web": "2.0.3",
+    "date-fns": "^3.3.1",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.0",
+    "@angular/cli": "^19.1.0",
+    "@angular/compiler-cli": "^19.1.0",
+    "ng-packagr": "^19.1.0",
+    "typescript": "~5.7.3"
+  }
+}

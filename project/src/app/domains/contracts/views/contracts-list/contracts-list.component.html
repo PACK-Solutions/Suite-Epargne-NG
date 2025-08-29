@@ -1,0 +1,39 @@
+<div class="contracts-list">
+  <div class="page-header">
+    <h1>Gestion des Contrats</h1>
+    <div class="header-actions">
+      <psh-button appearance="filled" variant="primary" (clicked)="createContract()">
+        Nouveau contrat
+      </psh-button>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <psh-input
+      [value]="searchTerm()"
+      (valueChange)="onSearch($event)"
+      placeholder="Rechercher un contrat..."
+      iconEnd="magnifying-glass"
+      [fullWidth]="true"
+      size="large"
+    >
+      <span input-label>Recherche</span>
+    </psh-input>
+  </div>
+
+  <div class="content">
+    <div class="contracts-table">
+      <psh-table
+        [columns]="contractsColumns"
+        [data]="contractsTableData()"
+        [globalSearch]="false"
+        emptyMessage="Aucun contrat trouvé"
+        variant="outline"
+        size="medium"
+        [hoverable]="true"
+        [striped]="true"
+        (rowClick)="navigateToContract($event.row)"
+      ></psh-table>
+    </div>
+  </div>
+</div>

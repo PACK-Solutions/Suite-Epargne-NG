@@ -1,0 +1,83 @@
+<div class="pie-container" [class]="'legend-' + config().legendPosition">
+  <div class="chart-section">
+    <svg
+      [attr.width]="config().width"
+      [attr.height]="config().height"
+      [attr.aria-label]="'Pie Chart'"
+      class="pie-chart"
+      role="img"
+      [attr.viewBox]="'0 0 ' + config().width + ' ' + config().height"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g [attr.transform]="'translate(' + center().x + ',' + center().y + ')'">
+        @for (segment of segments(); track segment.value) {
+          <path
+            [attr.d]="segment.path"
+            [style.fill]="segment.color || 'var(--chart-primary-color)'"
+            [class.hovered]="hoveredIndex() === segment.index"
+            [style.opacity]="hiddenSegments().has(segment.index) ? 0.3 : 1"
+            (mouseenter)="onSegmentHover(segment.index)"
+            (mouseleave)="onSegmentLeave()"
+            [attr.aria-label]="segment.label + ': ' + segment.percentage + '%'"
+            role="graphics-symbol"
+          />
+        }
+      </g>
+
+      @if (hoveredIndex() !== null) {
+        @for (segment of segments(); track segment.index) {
+          @if (hoveredIndex() === segment.index) {
+            <g 
+              class="tooltip" 
+              [attr.transform]="'translate(' + getTooltipPosition(segment).x + ',' + getTooltipPosition(segment).y + ')'"
+              [style.--tooltip-width]="tooltipWidth() + 'px'"
+            >          
+              <rect
+                [attr.x]="-(tooltipWidth() / 2 + 5)"
+                y="-30"
+                [attr.width]="tooltipWidth() + 10"
+                height="60"
+                rx="4"
+                class="tooltip-bg"
+              />
+              <text 
+                y="-10"
+                class="tooltip-label"
+                [attr.x]="0"
+              >
+                {{ segment.label }}
+              </text>
+              <text y="15" class="tooltip-value">
+                {{ formatValue(segment.value, segment.percentage) }}
+              </text>
+            </g>
+          }
+        }
+      }
+    </svg>
+  </div>
+
+  @if (config().showLegend) {
+    <div class="pie-legend">
+      @for (segment of data(); track segment.index) {
+        <div 
+          class="legend-item"
+          [class.hidden]="hiddenSegments().has(segment.index)"
+          [class.hovered]="hoveredIndex() === segment.index"
+          (mouseenter)="onSegmentHover(segment.index)"
+          (mouseleave)="onSegmentLeave()"
+          (click)="toggleSegment(segment.index)"
+        >
+          <span 
+            class="legend-color"
+            [style.background-color]="segment.color || 'var(--chart-primary-color)'"
+          ></span>
+          <span class="legend-label">{{ segment.label }}</span>
+          <span class="legend-value">
+            {{ getSegmentPercentage(segment.index).toFixed(1) }}%
+          </span>
+        </div>
+      }
+    </div>
+  }
+</div>

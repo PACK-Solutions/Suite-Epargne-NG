@@ -1,0 +1,70 @@
+<div 
+  class="card"
+  [class]="variant()"
+  [class.horizontal]="orientation() === 'horizontal'"
+  [class.hoverable]="hoverable()"
+  [class.interactive]="interactive()"
+  [class.disabled]="disabled()"
+  [class.collapsed]="collapsible() && !expanded()"
+  [ngStyle]="computedStyles()"
+  (click)="handleClick($event)"
+  role="article"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-expanded]="collapsible() ? expanded() : undefined"
+  [attr.data-state]="state()"
+>
+  <!-- Header -->
+  @if (showHeader() && (hasHeaderContent() || collapsible())) {
+    <div 
+      class="card-header"
+      [class]="'align-' + headerAlignment()"
+      [ngStyle]="headerStyle()"
+    >
+      <ng-content select="[card-header]"></ng-content>
+      @if (collapsible()) {
+        <button 
+          type="button"
+          class="card-collapse-button"
+          (click)="toggleExpand()"
+          [attr.aria-label]="expanded() ? 'Collapse' : 'Expand'"
+        >
+          <i 
+            class="ph"
+            [class.ph-caret-up]="expanded()"
+            [class.ph-caret-down]="!expanded()"
+            aria-hidden="true"
+          ></i>
+        </button>
+      }
+    </div>
+  }
+
+  <!-- Side Content -->
+  <ng-content select="[card-side]"></ng-content>
+
+  <!-- Main Content -->
+  <div 
+    class="card-content"
+    [class]="'align-' + contentAlignment()"
+    [ngStyle]="contentStyle()"
+  >
+    @if (loading()) {
+      <div class="card-loader" role="progressbar">
+        <div class="loader"></div>
+      </div>
+    } @else {
+      <ng-content></ng-content>
+    }
+  </div>
+
+  <!-- Footer -->
+  @if (showFooter() && hasFooterContent()) {
+    <div 
+      class="card-footer"
+      [class]="'align-' + footerAlignment()"
+      [ngStyle]="footerStyle()"
+    >
+      <ng-content select="[card-footer]"></ng-content>
+    </div>
+  }
+</div>

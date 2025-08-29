@@ -1,0 +1,32 @@
+<psh-card [variant]="cardVariant()">
+  <div card-side>
+    <h3 class="info-card-title">
+      <i class="ph {{ titleIcon() }}" aria-hidden="true"></i>
+      {{ title() }}
+    </h3>
+  </div>
+  
+  <div class="info-card-content">
+    @if (shouldShowEmptyState()) {
+      <div class="info-card-empty-state">
+        {{ getEmptyStateMessage() }}
+      </div>
+    } @else {
+      @for (item of data(); track $index) {
+        <div class="info-card-row">
+          <div class="info-card-label" [style.flex]="item.labelWidth || options().labelWidth ? 'none' : '1'" 
+               [style.width]="item.labelWidth || options().labelWidth">
+            {{ item.label }}
+          </div>
+          <div class="info-card-value" [style.flex]="item.valueWidth || options().valueWidth ? 'none' : '2'"
+               [style.width]="item.valueWidth || options().valueWidth">
+            {{ item.value || 'Non renseigné' }}
+          </div>
+        </div>
+      }
+    }
+  </div>
+  
+  <!-- Pass through card-actions slot only if content exists -->
+  <ng-content select="[card-actions]"></ng-content>
+</psh-card>
