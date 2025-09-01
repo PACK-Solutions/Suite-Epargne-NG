@@ -1,4 +1,4 @@
-Use Angular 19+ standards. Enforce the following architecture and coding rules for all components, services, and UI structures:
+Use Angular 20 standards. Enforce the following architecture and coding rules for all components, services, and UI structures:
 
 1. COMPONENT STRUCTURE
 - Use Angular standalone components (`standalone: true`)
