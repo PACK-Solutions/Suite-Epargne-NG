@@ -18,7 +18,7 @@ export const INSURER_CONFIG = new InjectionToken<InsurerConfig>('INSURER_CONFIG'
     code: 'gan',
     name: 'GAN Assurances',
     logoPath: '/assets/logos/gan.svg',
-    primaryColor: '',
+    primaryColor: '#FF0000',
     secondaryColor: '',
     features: ['person.edit', 'contract.create', 'contract.fiscality.pero'],
     featureOverrides: [
