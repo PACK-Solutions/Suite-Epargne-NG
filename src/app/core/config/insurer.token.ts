@@ -24,7 +24,7 @@ export const INSURER_CONFIG = new InjectionToken<InsurerConfig>('INSURER_CONFIG'
     featureOverrides: [
       { id: 'person.displayFiscalInfoGeneralView', enabled: true }, // Désactiver l'affichage des infos fiscales pour les personnes physiques chez GAN
       { id: 'personLegal.displayFiscalInfoGeneralView', enabled: true }, // Désactiver l'affichage des infos fiscales pour les personnes morales chez GAN
-      { id: 'person.displayBankingGeneralView', enabled: false }, // Activer l'affichage des coordonnées bancaires pour les personnes physiques chez GAN
+      { id: 'person.displayBankingGeneralView', enabled: true }, // Activer l'affichage des coordonnées bancaires pour les personnes physiques chez GAN
       { id: 'domain.personnes', enabled: true }, // Activer le domaine Personnes pour GAN (par défaut)
       { id: 'domain.contrats', enabled: true }, // Activer le domaine Contrats pour GAN (par défaut)
       { id: 'domain.rentes', enabled: false }, // Désactiver le domaine Rentes pour GAN
