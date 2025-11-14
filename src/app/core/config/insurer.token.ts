@@ -27,7 +27,7 @@ export const INSURER_CONFIG = new InjectionToken<InsurerConfig>('INSURER_CONFIG'
       { id: 'person.displayBankingGeneralView', enabled: true }, // Activer l'affichage des coordonnées bancaires pour les personnes physiques chez GAN
       { id: 'domain.personnes', enabled: true }, // Activer le domaine Personnes pour GAN (par défaut)
       { id: 'domain.contrats', enabled: true }, // Activer le domaine Contrats pour GAN (par défaut)
-      { id: 'domain.rentes', enabled: false }, // Désactiver le domaine Rentes pour GAN
+      { id: 'domain.rentes', enabled: true }, // Désactiver le domaine Rentes pour GAN
       { id: 'domain.deces', enabled: true }, // Désactiver le domaine Décès pour GAN
     ],
     fiscalities: ['pero', 'article83', 'perin']
